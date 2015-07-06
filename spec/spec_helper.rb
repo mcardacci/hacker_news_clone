@@ -84,6 +84,10 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+  def logged_in
+    let!(:user)  { User.create(:name => "Bob", :password => "1234", :email => "monkeychicken@asdf.com") }
+  end
+
   def user_login
     example_user = User.create(name: "mcgrath", email: "mandm@example.com", password: "password")
     visit root_path
@@ -92,6 +96,13 @@ RSpec.configure do |config|
     fill_in('Password', with: example_user.password)
     click_button "Login"
   end
-
+  def create_post
+    user_login
+    click_link "Create a Post"
+    fill_in("Url", with: "http://www.google.com")
+    fill_in("Body", with: "A search engine")
+    click_button "Create Post"
+    expect(page).to have_link("A search engine")
+  end
 
 end
