@@ -9,7 +9,9 @@
     <% end %>
   <% end %>
 </div>
-
+<%= form_tag logout_path, method: :delete do %>
+  <%= submit_tag value="Logout" %>
+<% end %>
 <%= link_to "Logout",  logout_path, method: :delete %>
 <%= link_to "Update Profile", edit_user_path %>
 <%= link_to "Delete Profile", user_path, method: :delete %>
